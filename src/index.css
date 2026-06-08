@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-yellow: #f4b400;
+    --brand-charcoal: #4a4a48;
+    --brand-cream: #fff8e5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-brand-cream text-brand-charcoal font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--brand-yellow);
+    color: #2a2a28;
+  }
+}
+
+@layer components {
+  /* Constrained content container, matching the airy editorial layout */
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Pill buttons (New Story uses fully-rounded buttons) */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
+           text-sm font-semibold tracking-wide transition-all duration-300 ease-out-expo
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+           focus-visible:ring-brand-yellow;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-yellow text-brand-ink shadow-lg shadow-brand-yellow/30
+           hover:bg-brand-yellow-deep hover:shadow-xl hover:shadow-brand-yellow/40
+           hover:-translate-y-0.5;
+  }
+
+  .btn-dark {
+    @apply btn bg-brand-charcoal text-white hover:bg-brand-charcoal-deep hover:-translate-y-0.5;
+  }
+
+  .btn-light {
+    @apply btn bg-white text-brand-charcoal ring-1 ring-brand-charcoal/15
+           hover:ring-brand-charcoal/30 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost-light {
+    @apply btn bg-white/10 text-white ring-1 ring-white/40 backdrop-blur
+           hover:bg-white/20 hover:-translate-y-0.5;
+  }
+
+  /* Eyebrow / kicker label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase
+           tracking-[0.22em] text-brand-yellow-deep;
+  }
+}
+
+/* Thin, premium scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fff8e5;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8d2c0;
+  border-radius: 9999px;
+  border: 2px solid #fff8e5;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a48;
+}
