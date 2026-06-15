@@ -1,50 +1,31 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { useLanguage } from "../i18n";
 
-const CARDS = [
-  {
-    id: "donate",
-    title: "Donate",
-    text: "Help provide school supplies and learning support for children.",
-    cta: "Donate Today",
-    href: "#donate",
-    icon: HeartIcon,
-  },
-  {
-    id: "volunteer",
-    title: "Volunteer",
-    text: "Join school visits, packing days, and community support activities.",
-    cta: "Join Us",
-    href: "#volunteer",
-    icon: HandIcon,
-  },
-  {
-    id: "partner",
-    title: "Partner",
-    text: "Work with us as a school, company, or community group.",
-    cta: "Partner With Us",
-    href: "#partner",
-    icon: UsersIcon,
-  },
+const CARD_META = [
+  { id: "donate", href: "#donate", icon: HeartIcon },
+  { id: "volunteer", href: "#volunteer", icon: HandIcon },
+  { id: "partner", href: "#partner", icon: UsersIcon },
 ];
 
 export default function PartnerWithUs() {
+  const { t } = useLanguage();
+  const CARDS = CARD_META.map((meta, i) => ({ ...meta, ...t.partner.cards[i] }));
   return (
     <section id="partner" className="bg-white py-24 sm:py-32">
       <div className="container-x">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <span className="eyebrow">Be part of it</span>
+            <span className="eyebrow">{t.partner.eyebrow}</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-brand-charcoal sm:text-5xl lg:text-6xl">
-              Lend a hand. Change a future.
+              {t.partner.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-brand-charcoal/65">
-              Every contribution — big or small — helps a Sri Lankan child learn
-              with dignity.
+              {t.partner.intro}
             </p>
           </Reveal>
         </div>

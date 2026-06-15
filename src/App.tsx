@@ -8,22 +8,25 @@ import ImpactNumbers from "./components/ImpactNumbers";
 import PartnerWithUs from "./components/PartnerWithUs";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import { LanguageProvider } from "./i18n";
 
 export default function App() {
   return (
-    <div className="relative bg-brand-cream">
-      <Navbar />
-      <main>
-        <Hero />
-        <SupportedBy />
-        <CoreProcess />
-        <ImpactModel />
-        <FeaturedStory />
-        <ImpactNumbers />
-        <PartnerWithUs />
-        <Newsletter />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="relative bg-brand-cream">
+        <Navbar />
+        <main>
+          <Hero />
+          <SupportedBy />
+          <CoreProcess />
+          <ImpactModel />
+          <FeaturedStory />
+          <ImpactNumbers />
+          <PartnerWithUs />
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }

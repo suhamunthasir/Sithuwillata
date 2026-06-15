@@ -18,8 +18,8 @@ export default {
         },
       },
       fontFamily: {
-        // Editorial serif for big headings (New Story uses a serif display)
-        display: ['"Fraunces"', "Georgia", "serif"],
+        // Clean editorial serif for big headings (even, upright letterforms)
+        display: ['"Lora"', "Georgia", "serif"],
         // Clean sans for body / UI
         sans: ['"Inter"', "system-ui", "sans-serif"],
         // Sinhala

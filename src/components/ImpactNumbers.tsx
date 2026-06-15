@@ -1,40 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Reveal from "./Reveal";
+import { useLanguage } from "../i18n";
 
-const STATS = [
+const STAT_META = [
   {
     value: 500,
     suffix: "+",
-    label: "Students Supported",
     image:
       "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=80",
   },
   {
     value: 25,
     suffix: "+",
-    label: "Schools Reached",
     image:
       "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80",
   },
   {
     value: 100,
     suffix: "+",
-    label: "Volunteers",
     image:
       "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80",
   },
   {
     value: 15,
     suffix: "+",
-    label: "Projects Completed",
     image:
       "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=900&q=80",
   },
   {
     value: 4,
     suffix: "+",
-    label: "Districts Reached",
     image:
       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80",
   },
@@ -82,22 +78,24 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function ImpactNumbers() {
+  const { t } = useLanguage();
+  const stats = STAT_META.map((meta, i) => ({ ...meta, label: t.impactNumbers.stats[i] }));
   return (
     <section id="impact" className="bg-brand-cream py-24 sm:py-32">
       <div className="container-x">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <span className="eyebrow">Our impact so far</span>
+            <span className="eyebrow">{t.impactNumbers.eyebrow}</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-brand-charcoal sm:text-5xl lg:text-6xl">
-              Kindness, measured in real change.
+              {t.impactNumbers.heading}
             </h2>
           </Reveal>
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-5 lg:mt-20 lg:grid-cols-5">
-          {STATS.map((stat, i) => (
+          {stats.map((stat, i) => (
             <Reveal
               key={stat.label}
               delay={i * 0.08}

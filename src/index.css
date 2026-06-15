@@ -24,6 +24,29 @@
     background-color: var(--brand-yellow);
     color: #2a2a28;
   }
+
+  /* When the visitor switches to Sinhala, render every string (including the
+     editorial display headings) in the Sinhala face so glyphs are correct. */
+  .lang-si,
+  .lang-si .font-display,
+  .lang-si .font-sans {
+    font-family: "Noto Sans Sinhala", "Inter", sans-serif;
+  }
+
+  /* Sinhala has tall vowel/consonant signs and breaks with Latin letter-spacing,
+     so drop the tracking and give text more vertical room than the Latin layout. */
+  .lang-si {
+    line-height: 1.7;
+  }
+  .lang-si * {
+    letter-spacing: normal !important;
+  }
+  .lang-si h1,
+  .lang-si h2,
+  .lang-si h3,
+  .lang-si blockquote {
+    line-height: 1.4;
+  }
 }
 
 @layer components {

@@ -13,6 +13,8 @@
  * ──────────────────────────────────────────────────────────────────────────
  */
 
+import { useLanguage } from "../i18n";
+
 type LogoProps = {
   /** "light" = for dark backgrounds (hero video). "dark" = for light backgrounds. */
   variant?: "light" | "dark";
@@ -62,6 +64,7 @@ export default function Logo({
   showText = true,
   className = "",
 }: LogoProps) {
+  const { t, lang } = useLanguage();
   const titleColor = variant === "light" ? "text-white" : "text-brand-charcoal";
   const subColor =
     variant === "light" ? "text-white/70" : "text-brand-charcoal/60";
@@ -70,7 +73,7 @@ export default function Logo({
     <a
       href="#top"
       className={`group flex items-center gap-3 ${className}`}
-      aria-label="Sithuwillata Athwalak — home"
+      aria-label="Sithuwillata Athwalak home"
     >
       <span className="transition-transform duration-500 ease-out-expo group-hover:-rotate-6">
         <BrandMark variant={variant} />
@@ -78,14 +81,20 @@ export default function Logo({
       {showText && (
         <span className="flex flex-col leading-none">
           <span
-            className={`font-sinhala text-lg font-extrabold tracking-tight ${titleColor}`}
+            className={`text-lg font-extrabold tracking-tight ${
+              lang === "si" ? "font-sinhala" : ""
+            } ${titleColor}`}
           >
-            සිතුවිල්ලට අත්වැලක්
+            {t.logo.title}
           </span>
           <span
-            className={`mt-0.5 text-[10px] font-semibold uppercase tracking-[0.28em] ${subColor}`}
+            className={`mt-0.5 text-[10px] font-semibold ${
+              lang === "en"
+                ? "font-sinhala tracking-tight"
+                : "uppercase tracking-[0.28em]"
+            } ${subColor}`}
           >
-            Sithuwillata Athwalak
+            {t.logo.sub}
           </span>
         </span>
       )}

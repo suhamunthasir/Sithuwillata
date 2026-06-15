@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { useLanguage } from "../i18n";
 
-const CARDS = [
+const CARD_META = [
   {
     id: "projects",
-    label: "Our Model",
-    title: "Education Support",
-    text: "School supplies, books, learning materials, and student support — delivered straight to the children who need them.",
-    cta: "View Projects",
     href: "#projects",
     theme: "dark" as const,
     image:
@@ -15,10 +12,6 @@ const CARDS = [
   },
   {
     id: "community",
-    label: "Our Model",
-    title: "Community Care",
-    text: "Donation drives, volunteer visits, and on-the-ground support for families and rural communities in need.",
-    cta: "Get Involved",
     href: "#volunteer",
     theme: "yellow" as const,
     image:
@@ -27,14 +20,16 @@ const CARDS = [
 ];
 
 export default function ImpactModel() {
+  const { t } = useLanguage();
+  const CARDS = CARD_META.map((meta, i) => ({ ...meta, ...t.impactModel.cards[i] }));
   return (
     <section id="projects" className="bg-white py-24 sm:py-32">
       <div className="container-x">
         <Reveal>
           <div className="mb-14 max-w-2xl">
-            <span className="eyebrow">Two ways we create change</span>
+            <span className="eyebrow">{t.impactModel.eyebrow}</span>
             <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-brand-charcoal sm:text-5xl">
-              One mission, two hands working together.
+              {t.impactModel.heading}
             </h2>
           </div>
         </Reveal>

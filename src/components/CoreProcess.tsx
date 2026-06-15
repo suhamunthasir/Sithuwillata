@@ -1,57 +1,53 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { useLanguage } from "../i18n";
 
 /**
  * Placeholder imagery from Unsplash (free). Replace `image` URLs with your own
  * photos of school visits, donation packing, and deliveries.
  */
-const STEPS = [
+const STEP_META = [
   {
     no: "01",
-    title: "Identify Children & Schools in Need",
-    text: "We connect with local schools and communities to understand what children need most.",
     image:
       "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1100&q=80",
   },
   {
     no: "02",
-    title: "Collect Donations & Resources",
-    text: "We gather books, school supplies, funds, and volunteer support through trusted local campaigns.",
     image:
       "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1100&q=80",
   },
   {
     no: "03",
-    title: "Deliver Support With Care",
-    text: "We visit schools and communities directly to distribute support and create meaningful impact.",
     image:
       "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1100&q=80",
   },
 ];
 
 export default function CoreProcess() {
+  const { t } = useLanguage();
+  const steps = STEP_META.map((meta, i) => ({ ...meta, ...t.coreProcess.steps[i] }));
   return (
     <section id="about" className="bg-brand-cream py-24 sm:py-32">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
-            <span className="eyebrow">How we work</span>
+            <span className="eyebrow">{t.coreProcess.eyebrow}</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-brand-charcoal sm:text-5xl lg:text-6xl">
-              We Turn Kindness Into Real Educational Support
+              {t.coreProcess.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-brand-charcoal/65">
-              A simple, transparent process — from finding the children who need
-              help most, to placing real resources in their hands.
+              {t.coreProcess.intro}
             </p>
           </Reveal>
         </div>
 
         <div className="mt-16 grid gap-6 lg:mt-20 lg:grid-cols-3 lg:gap-7">
-          {STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <Reveal key={step.no} delay={i * 0.12} className="h-full">
               <motion.article
                 whileHover={{ y: -8 }}

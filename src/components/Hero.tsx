@@ -1,33 +1,25 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "../i18n";
 
 /**
  * ════════════════════════════════════════════════════════════════════════
- *  HERO BACKGROUND VIDEO  —  REPLACE ME LATER
+ *  HERO BACKGROUND IMAGE  ·  REPLACE ME LATER
  * ════════════════════════════════════════════════════════════════════════
- *  `HERO_VIDEO_SRC` below is a temporary, free, publicly-hosted placeholder
- *  so the hero works out of the box.
+ *  Full-bleed background photo that sits behind the headline (same layout as
+ *  the reference hero). `HERO_IMAGE` is a temporary, free placeholder.
  *
- *  ➤ To use your own footage of Sri Lankan children / school visits /
- *    volunteers / donation drives, just change HERO_VIDEO_SRC to your file:
- *      - Local file:  put it in /public and use "/hero.mp4"
- *      - Or a hosted URL (Cloudflare Stream, Cloudinary, S3, etc.)
- *
- *  Good FREE sources for placeholder/temp footage:
- *      • https://www.pexels.com/videos/   (search: "sri lanka children school")
- *      • https://mixkit.co/free-stock-video/
- *      • https://pixabay.com/videos/
- *      • https://coverr.co/
- *
- *  `HERO_POSTER` is the fallback image shown while the video loads.
+ *  To use your own photo of Sri Lankan children / school visits / donation
+ *  drives, just change HERO_IMAGE:
+ *      - Local file:  put it in /public and use "/hero.jpg"
+ *      - Or a hosted URL (Unsplash, Cloudinary, S3, etc.)
  * ════════════════════════════════════════════════════════════════════════
  */
-const HERO_VIDEO_SRC =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4";
-const HERO_POSTER =
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1920&q=80";
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1624963146266-4481df1e40b5?auto=format&fit=crop&w=1920&q=80";
 
 export default function Hero() {
+  const { t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -36,40 +28,37 @@ export default function Hero() {
   // Subtle parallax: content drifts up & fades as you scroll past the hero.
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scaleVideo = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const scaleBg = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
     <section
       id="top"
       ref={ref}
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
+      className="bg-brand-cream px-3 pb-3 pt-20 sm:px-4 sm:pb-4 lg:px-5"
     >
-      {/* Background video */}
-      <motion.div style={{ scale: scaleVideo }} className="absolute inset-0">
-        <video
-          className="h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={HERO_POSTER}
-          preload="auto"
+      {/* Rounded, inset image card (same layout as the reference hero) */}
+      <div className="relative h-[86svh] min-h-[600px] w-full overflow-hidden rounded-[1.75rem] sm:rounded-[2.25rem]">
+        {/* Background image */}
+        <motion.div style={{ scale: scaleBg }} className="absolute inset-0">
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover"
+          />
+        </motion.div>
+
+        {/* Light-touch overlays: keep the photo vivid, darken only the
+            bottom-left where the headline sits so it stays legible. */}
+        <div className="absolute inset-0 bg-brand-charcoal-deep/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal-deep/85 via-brand-charcoal-deep/20 to-transparent" />
+
+        {/* Hero content */}
+        <motion.div
+          style={{ y: yText, opacity }}
+          className="relative flex h-full flex-col justify-end p-8 sm:p-12 lg:p-16"
         >
-          {/* 👇 REPLACE this source with your own Sri Lankan footage */}
-          <source src={HERO_VIDEO_SRC} type="video/mp4" />
-        </video>
-      </motion.div>
-
-      {/* Dark overlays for legible text (matches New Story's cinematic look) */}
-      <div className="absolute inset-0 bg-brand-charcoal-deep/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal-deep/85 via-brand-charcoal-deep/25 to-brand-charcoal-deep/55" />
-
-      {/* Hero content */}
-      <motion.div
-        style={{ y: yText, opacity }}
-        className="container-x relative flex h-full flex-col justify-end pb-24 sm:pb-28 lg:justify-center lg:pb-0"
-      >
-        <div className="max-w-3xl">
+          <div className="max-w-3xl">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +66,7 @@ export default function Hero() {
             className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/90 backdrop-blur"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow" />
-            For Sri Lankan school children
+            {t.hero.badge}
           </motion.span>
 
           <motion.h1
@@ -86,8 +75,8 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="font-display text-[2.7rem] font-semibold leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl"
           >
-            From Small Acts of Kindness to{" "}
-            <span className="text-brand-yellow">Brighter Futures.</span>
+            {t.hero.titlePre}
+            <span className="text-brand-yellow">{t.hero.titleAccent}</span>
           </motion.h1>
 
           <motion.p
@@ -96,8 +85,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl"
           >
-            We support Sri Lankan children with education, school supplies, and
-            community care.
+            {t.hero.subtitle}
           </motion.p>
 
           <motion.div
@@ -107,34 +95,35 @@ export default function Hero() {
             className="mt-9 flex flex-wrap items-center gap-4"
           >
             <a href="#donate" className="btn-primary text-base">
-              Donate
+              {t.hero.donate}
               <ArrowIcon />
             </a>
             <a href="#volunteer" className="btn-ghost-light text-base">
-              Volunteer
+              {t.hero.volunteer}
             </a>
           </motion.div>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
 
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 lg:flex"
-      >
-        <span className="text-[10px] font-medium uppercase tracking-[0.3em]">
-          Scroll
-        </span>
-        <span className="flex h-9 w-5 items-start justify-center rounded-full border border-white/40 p-1">
-          <motion.span
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-            className="h-2 w-1 rounded-full bg-brand-yellow"
-          />
-        </span>
-      </motion.div>
+        {/* Scroll cue */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/70 lg:flex"
+        >
+          <span className="text-[10px] font-medium uppercase tracking-[0.3em]">
+            {t.hero.scroll}
+          </span>
+          <span className="flex h-9 w-5 items-start justify-center rounded-full border border-white/40 p-1">
+            <motion.span
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="h-2 w-1 rounded-full bg-brand-yellow"
+            />
+          </span>
+        </motion.div>
+      </div>
     </section>
   );
 }

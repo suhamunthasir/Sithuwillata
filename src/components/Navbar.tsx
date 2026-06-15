@@ -1,42 +1,29 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "./Logo";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "../i18n";
 
-const NAV_LINKS = [
-  { label: "Our Impact", href: "#impact" },
-  { label: "Projects", href: "#projects" },
-  { label: "About Us", href: "#about" },
-  { label: "Gallery", href: "#gallery" },
-];
-
-const GET_INVOLVED = [
-  {
-    title: "Donate",
-    desc: "Fund books, supplies & learning support.",
-    href: "#donate",
-    icon: HeartIcon,
-  },
-  {
-    title: "Volunteer",
-    desc: "Join school visits & packing days.",
-    href: "#volunteer",
-    icon: HandIcon,
-  },
-  {
-    title: "Sponsor School Supplies",
-    desc: "Give a child a ready-to-learn kit.",
-    href: "#sponsor",
-    icon: BookIcon,
-  },
-  {
-    title: "Partner With Us",
-    desc: "Schools, companies & community groups.",
-    href: "#partner",
-    icon: UsersIcon,
-  },
+const NAV_HREFS = ["#impact", "#projects", "#about", "#gallery"];
+const GET_INVOLVED_META = [
+  { href: "#donate", icon: HeartIcon },
+  { href: "#volunteer", icon: HandIcon },
+  { href: "#sponsor", icon: BookIcon },
+  { href: "#partner", icon: UsersIcon },
 ];
 
 export default function Navbar() {
+  const { t } = useLanguage();
+  const navLinks = NAV_HREFS.map((href, i) => ({
+    href,
+    label: t.nav.links[i].label,
+  }));
+  const getInvolved = GET_INVOLVED_META.map((meta, i) => ({
+    ...meta,
+    title: t.nav.getInvolved[i].title,
+    desc: t.nav.getInvolved[i].desc,
+  }));
+
   const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,7 +43,9 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  const variant: "light" | "dark" = scrolled ? "dark" : "light";
+  // The hero is now an inset card on a cream page, so the bar always sits over
+  // a light background — keep the logo and links dark whether scrolled or not.
+  const variant: "light" | "dark" = "dark";
 
   return (
     <header
@@ -72,15 +61,11 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((l) => (
+          {navLinks.map((l) => (
             <a
               key={l.label}
               href={l.href}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                scrolled
-                  ? "text-brand-charcoal/80 hover:text-brand-charcoal"
-                  : "text-white/90 hover:text-white"
-              }`}
+              className="rounded-full px-4 py-2 text-sm font-medium text-brand-charcoal/80 transition-colors hover:text-brand-charcoal"
             >
               {l.label}
             </a>
@@ -99,7 +84,7 @@ export default function Navbar() {
               }`}
               onClick={() => setMegaOpen((v) => !v)}
             >
-              Get Involved
+              {t.nav.cta}
               <ChevronIcon open={megaOpen} />
             </button>
 
@@ -114,7 +99,7 @@ export default function Navbar() {
                 >
                   <div className="overflow-hidden rounded-3xl border border-brand-charcoal/5 bg-white p-3 shadow-[0_24px_60px_rgba(74,74,72,0.18)]">
                     <div className="grid grid-cols-2 gap-2">
-                      {GET_INVOLVED.map((card) => (
+                      {getInvolved.map((card) => (
                         <a
                           key={card.title}
                           href={card.href}
@@ -135,11 +120,11 @@ export default function Navbar() {
                       ))}
                     </div>
                     <div className="mt-2 flex items-center justify-between rounded-2xl bg-brand-charcoal px-5 py-4">
-                      <span className="font-sinhala text-sm text-white/90">
-                        ඔබේ කුඩා පියවරක් — දරුවෙකුගේ අනාගතයක්
+                      <span className="text-sm text-white/90">
+                        {t.nav.megaTagline}
                       </span>
                       <a href="#donate" className="btn-primary !px-5 !py-2 text-xs">
-                        Donate Now
+                        {t.nav.donateNow}
                       </a>
                     </div>
                   </div>
@@ -147,11 +132,13 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </div>
+          {/* Language switch (English default, Sinhala optional) */}
+          <LanguageToggle variant="dark" className="ml-2" />
         </nav>
 
         {/* Mobile toggle */}
         <button
-          className={`lg:hidden ${scrolled ? "text-brand-charcoal" : "text-white"}`}
+          className="text-brand-charcoal lg:hidden"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -170,7 +157,7 @@ export default function Navbar() {
             className="overflow-hidden bg-white lg:hidden"
           >
             <div className="container-x flex flex-col gap-1 py-6">
-              {NAV_LINKS.map((l) => (
+              {navLinks.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
@@ -182,9 +169,9 @@ export default function Navbar() {
               ))}
               <div className="my-3 h-px bg-brand-charcoal/10" />
               <p className="px-4 text-xs font-semibold uppercase tracking-widest text-brand-charcoal/40">
-                Get Involved
+                {t.nav.getInvolvedHeading}
               </p>
-              {GET_INVOLVED.map((card) => (
+              {getInvolved.map((card) => (
                 <a
                   key={card.title}
                   href={card.href}
@@ -204,8 +191,11 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary mt-4"
               >
-                Donate Today
+                {t.nav.donateToday}
               </a>
+              <div className="mt-5 flex justify-start px-1">
+                <LanguageToggle variant="dark" />
+              </div>
             </div>
           </motion.div>
         )}

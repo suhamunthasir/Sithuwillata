@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { useLanguage } from "../i18n";
 
 export default function FeaturedStory() {
+  const { t } = useLanguage();
   return (
     <section className="relative overflow-hidden bg-brand-charcoal py-24 sm:py-32">
       {/* soft glow accents */}
@@ -14,7 +16,7 @@ export default function FeaturedStory() {
           <div className="order-2 lg:order-1">
             <Reveal>
               <span className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-yellow">
-                A story of hope
+                {t.featuredStory.eyebrow}
               </span>
             </Reveal>
             <Reveal delay={0.05}>
@@ -22,8 +24,7 @@ export default function FeaturedStory() {
             </Reveal>
             <Reveal delay={0.1}>
               <blockquote className="mt-2 font-display text-3xl font-medium leading-[1.25] tracking-tight text-white sm:text-4xl lg:text-[2.7rem]">
-                Receiving school supplies gave me confidence to begin the new
-                term with hope.
+                {t.featuredStory.quote}
               </blockquote>
             </Reveal>
 
@@ -31,16 +32,15 @@ export default function FeaturedStory() {
               <div className="mt-8 flex items-center gap-4">
                 <span className="h-px w-12 bg-brand-yellow" />
                 <div>
-                  <p className="text-base font-semibold text-white">A Student</p>
-                  <p className="text-sm text-white/55">Sri Lanka</p>
+                  <p className="text-base font-semibold text-white">{t.featuredStory.name}</p>
+                  <p className="text-sm text-white/55">{t.featuredStory.place}</p>
                 </div>
               </div>
             </Reveal>
 
             <Reveal delay={0.24}>
               <p className="mt-8 max-w-lg text-lg leading-relaxed text-white/70">
-                Through the support of kind donors and volunteers, children
-                receive the tools they need to continue learning with dignity.
+                {t.featuredStory.body}
               </p>
             </Reveal>
           </div>
@@ -61,8 +61,8 @@ export default function FeaturedStory() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal-deep/40 to-transparent" />
               <div className="absolute bottom-5 left-5 rounded-2xl bg-white/10 px-5 py-3 backdrop-blur-md">
-                <p className="font-sinhala text-sm font-semibold text-white">
-                  ඉගෙනීමට අත්වැලක්
+                <p className="text-sm font-semibold text-white">
+                  {t.featuredStory.badge}
                 </p>
               </div>
             </motion.div>

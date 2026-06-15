@@ -1,20 +1,6 @@
 import Logo from "./Logo";
 import Reveal from "./Reveal";
-
-const COLUMNS = [
-  {
-    title: "Meet Us",
-    links: ["About Us", "Team", "Contact"],
-  },
-  {
-    title: "Learn More",
-    links: ["Impact", "Projects", "Gallery", "Stories"],
-  },
-  {
-    title: "Get Involved",
-    links: ["Donate", "Volunteer", "Sponsor Supplies", "Partner With Us"],
-  },
-];
+import { useLanguage } from "../i18n";
 
 const SOCIALS = [
   { name: "Instagram", icon: InstagramIcon },
@@ -24,6 +10,7 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer id="contact" className="bg-brand-charcoal-deep text-white">
       {/* Big CTA band */}
@@ -32,11 +19,11 @@ export default function Footer() {
           <Reveal>
             <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
               <h2 className="max-w-2xl font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-                We can&apos;t do it{" "}
-                <span className="text-brand-yellow">without you.</span>
+                {t.footer.ctaPre}
+                <span className="text-brand-yellow">{t.footer.ctaAccent}</span>
               </h2>
               <a href="#donate" className="btn-primary shrink-0 text-base">
-                Get Involved
+                {t.footer.getInvolved}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M5 12h14M13 6l6 6-6 6"
@@ -58,15 +45,14 @@ export default function Footer() {
           <div className="max-w-xs">
             <Logo variant="light" />
             <p className="mt-5 text-sm leading-relaxed text-white/55">
-              From small acts of kindness to brighter futures — supporting Sri
-              Lankan school children with education, supplies and community care.
+              {t.footer.tagline}
             </p>
             <p className="mt-4 font-sinhala text-sm text-white/70">
               සිතුවිල්ලට අත්වැලක්
             </p>
           </div>
 
-          {COLUMNS.map((col) => (
+          {t.footer.columns.map((col) => (
             <div key={col.title}>
               <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-yellow">
                 {col.title}
@@ -90,8 +76,7 @@ export default function Footer() {
         {/* Socials + bottom bar */}
         <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
           <p className="text-xs text-white/45">
-            © {new Date().getFullYear()} Sithuwillata Athwalak. Made with kindness
-            in Sri Lanka. 🇱🇰
+            © {new Date().getFullYear()} Sithuwillata Athwalak. {t.footer.madeWith} 🇱🇰
           </p>
           <div className="flex items-center gap-3">
             {SOCIALS.map((s) => (
