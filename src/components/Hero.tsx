@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { useLanguage } from "../i18n";
+import { useLanguage, renderRich } from "../i18n";
 
 /**
  * ════════════════════════════════════════════════════════════════════════
@@ -85,7 +85,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl"
           >
-            {t.hero.subtitle}
+            {renderRich(t.hero.subtitle)}
           </motion.p>
 
           <motion.div

@@ -1,5 +1,6 @@
 import {
   createContext,
+  Fragment,
   useContext,
   useEffect,
   useState,
@@ -7,6 +8,22 @@ import {
 } from "react";
 
 export type Lang = "en" | "si";
+
+/**
+ * Renders a translation string where phrases wrapped in **double asterisks**
+ * are shown bold. Keeps the surrounding text (and colour) intact.
+ */
+export function renderRich(text: string): ReactNode {
+  return text.split("**").map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold">
+        {part}
+      </strong>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    )
+  );
+}
 
 /**
  * All user-facing copy lives here so the whole site can switch between
@@ -41,11 +58,11 @@ export const translations = {
       getInvolvedHeading: "Get Involved",
     },
     hero: {
-      badge: "For Sri Lankan school children",
-      titlePre: "From Small Acts of Kindness to ",
-      titleAccent: "Brighter Futures.",
+      badge: "For rural Sri Lankan children",
+      titlePre: "Empowering Rural Children Through ",
+      titleAccent: "Education.",
       subtitle:
-        "We support Sri Lankan children with education, school supplies, and community care.",
+        "We improve rural children's access to quality **education, learning resources, and personal development opportunities**.",
       donate: "Donate",
       volunteer: "Volunteer",
       scroll: "Scroll",
@@ -62,10 +79,10 @@ export const translations = {
       ],
     },
     coreProcess: {
-      eyebrow: "How we work",
-      heading: "We Turn Kindness Into Real Educational Support",
+      eyebrow: "Our objective",
+      heading: "Reducing educational inequality in rural communities",
       intro:
-        "A simple, transparent process, from finding the children who need help most, to placing real resources in their hands.",
+        "Through school donation projects, educational seminars, awareness programmes, and community support, we aim to **reduce educational inequality** and help every child build the confidence, knowledge, and skills for a brighter future.",
       steps: [
         {
           title: "Identify Children & Schools in Need",
@@ -82,20 +99,20 @@ export const translations = {
       ],
     },
     impactModel: {
-      eyebrow: "Two ways we create change",
-      heading: "One mission, two hands working together.",
+      eyebrow: "What we stand for",
+      heading: "Our vision and mission.",
       cards: [
         {
-          label: "Our Model",
-          title: "Education Support",
-          text: "School supplies, books, learning materials, and student support, delivered straight to the children who need them.",
-          cta: "View Projects",
+          label: "Vision",
+          title: "Our Vision",
+          text: "A future where every rural child is educated, empowered, and equipped to transform their life and community.",
+          cta: "Get Involved",
         },
         {
-          label: "Our Model",
-          title: "Community Care",
-          text: "Donation drives, volunteer visits, and on-the-ground support for families and rural communities in need.",
-          cta: "Get Involved",
+          label: "Mission",
+          title: "Our Mission",
+          text: "To bridge the educational gap in rural communities by supporting children with learning resources, school donation projects, educational seminars, awareness programmes, and community-based initiatives that **strengthen their knowledge, confidence, and opportunities for success.**",
+          cta: "Support Us",
         },
       ],
     },
@@ -168,7 +185,7 @@ export const translations = {
         },
       ],
       tagline:
-        "From small acts of kindness to brighter futures, supporting Sri Lankan school children with education, supplies and community care.",
+        "Empowering rural children through education, with learning resources, school donation projects, seminars, and community support.",
       madeWith: "Made with kindness in Sri Lanka.",
     },
     logo: {
@@ -210,11 +227,11 @@ export const translations = {
       getInvolvedHeading: "සම්බන්ධ වන්න",
     },
     hero: {
-      badge: "ශ්‍රී ලාංකික පාසල් දරුවන් සඳහා",
-      titlePre: "කුඩා කරුණා ක්‍රියාවන්ගේ සිට ",
-      titleAccent: "දීප්තිමත් අනාගතයන් දක්වා.",
+      badge: "ග්‍රාමීය ශ්‍රී ලාංකික දරුවන් සඳහා",
+      titlePre: "අධ්‍යාපනය තුළින් ග්‍රාමීය දරුවන් ",
+      titleAccent: "සවිබල ගැන්වීම.",
       subtitle:
-        "අපි ශ්‍රී ලාංකික දරුවන්ට අධ්‍යාපනය, පාසල් උපකරණ සහ ප්‍රජා රැකවරණය සපයමු.",
+        "**ගුණාත්මක අධ්‍යාපනය, ඉගෙනුම් සම්පත් සහ පෞද්ගලික සංවර්ධන අවස්ථා** සඳහා ග්‍රාමීය දරුවන්ගේ ප්‍රවේශය අපි වැඩිදියුණු කරමු.",
       donate: "පරිත්‍යාග කරන්න",
       volunteer: "ස්වේච්ඡා සේවය",
       scroll: "පහළට",
@@ -231,10 +248,10 @@ export const translations = {
       ],
     },
     coreProcess: {
-      eyebrow: "අපි ක්‍රියා කරන ආකාරය",
-      heading: "අපි කරුණාව සැබෑ අධ්‍යාපනික සහයක් බවට පත් කරමු",
+      eyebrow: "අපගේ පරමාර්ථය",
+      heading: "ග්‍රාමීය ප්‍රජාවන්හි අධ්‍යාපන අසමානතාව අඩු කිරීම",
       intro:
-        "වැඩිම උදව් අවශ්‍ය දරුවන් සොයා ගැනීමේ සිට ඔවුන්ගේ අතට සැබෑ සම්පත් ලබා දීම දක්වා සරල, විනිවිද පෙනෙන ක්‍රියාවලියකි.",
+        "පාසල් පරිත්‍යාග ව්‍යාපෘති, අධ්‍යාපනික සම්මන්ත්‍රණ, දැනුවත් කිරීමේ වැඩසටහන් සහ ප්‍රජා සහාය තුළින් අපි **අධ්‍යාපන අසමානතාව අඩු කිරීමට** උත්සාහ කරමු; සෑම දරුවෙකුටම දීප්තිමත් අනාගතයක් සඳහා විශ්වාසය, දැනුම සහ කුසලතා ගොඩනඟා ගැනීමට උපකාර කරමු.",
       steps: [
         {
           title: "අවශ්‍යතා ඇති දරුවන් සහ පාසල් හඳුනා ගැනීම",
@@ -251,20 +268,20 @@ export const translations = {
       ],
     },
     impactModel: {
-      eyebrow: "අපි වෙනසක් ඇති කරන ක්‍රම දෙකක්",
-      heading: "එක මෙහෙවරක්, එකට වැඩ කරන අත් දෙකක්.",
+      eyebrow: "අප වෙනුවෙන් පෙනී සිටින දේ",
+      heading: "අපගේ දැක්ම සහ මෙහෙවර.",
       cards: [
         {
-          label: "අපගේ ආකෘතිය",
-          title: "අධ්‍යාපන සහාය",
-          text: "පාසල් උපකරණ, පොත්, ඉගෙනුම් ද්‍රව්‍ය සහ ශිෂ්‍ය සහාය, ඒවා අවශ්‍ය දරුවන්ට කෙලින්ම ලබා දේ.",
-          cta: "ව්‍යාපෘති බලන්න",
+          label: "දැක්ම",
+          title: "අපගේ දැක්ම",
+          text: "සෑම ග්‍රාමීය දරුවෙකුම අධ්‍යාපනය ලබා, සවිබල ගැන්වී, තම ජීවිතය හා ප්‍රජාව පරිවර්තනය කිරීමට සූදානම් වූ අනාගතයක්.",
+          cta: "සම්බන්ධ වන්න",
         },
         {
-          label: "අපගේ ආකෘතිය",
-          title: "ප්‍රජා රැකවරණය",
-          text: "පරිත්‍යාග මෙහෙයුම්, ස්වේච්ඡා චාරිකා සහ අවශ්‍යතා ඇති පවුල් සහ ග්‍රාමීය ප්‍රජාවන් සඳහා භූමියේ සහාය.",
-          cta: "සම්බන්ධ වන්න",
+          label: "මෙහෙවර",
+          title: "අපගේ මෙහෙවර",
+          text: "ඉගෙනුම් සම්පත්, පාසල් පරිත්‍යාග ව්‍යාපෘති, අධ්‍යාපනික සම්මන්ත්‍රණ, දැනුවත් කිරීමේ වැඩසටහන් සහ ප්‍රජා මූලික වැඩසටහන් මගින් දරුවන්ට සහාය වෙමින් ග්‍රාමීය ප්‍රජාවන්හි අධ්‍යාපන පරතරය අඩු කිරීම; **ඔවුන්ගේ දැනුම, විශ්වාසය සහ ජයග්‍රහණය සඳහා අවස්ථා ශක්තිමත් කිරීම.**",
+          cta: "සහාය වන්න",
         },
       ],
     },
@@ -342,7 +359,7 @@ export const translations = {
         },
       ],
       tagline:
-        "කුඩා කරුණා ක්‍රියාවන්ගේ සිට දීප්තිමත් අනාගතයන් දක්වා, ශ්‍රී ලාංකික පාසල් දරුවන්ට අධ්‍යාපනය, උපකරණ සහ ප්‍රජා රැකවරණය සපයමින්.",
+        "ඉගෙනුම් සම්පත්, පාසල් පරිත්‍යාග ව්‍යාපෘති, සම්මන්ත්‍රණ සහ ප්‍රජා සහාය සමඟ අධ්‍යාපනය තුළින් ග්‍රාමීය දරුවන් සවිබල ගැන්වීම.",
       madeWith: "ශ්‍රී ලංකාවේ කරුණාවෙන් සාදන ලදී.",
     },
     logo: {

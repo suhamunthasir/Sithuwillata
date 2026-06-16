@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
-import { useLanguage } from "../i18n";
+import { useLanguage, renderRich } from "../i18n";
 
 const CARD_META = [
   {
@@ -85,7 +85,7 @@ export default function ImpactModel() {
                         isYellow ? "text-brand-ink/75" : "text-white/75"
                       }`}
                     >
-                      {card.text}
+                      {renderRich(card.text)}
                     </p>
                     <a
                       href={card.href}

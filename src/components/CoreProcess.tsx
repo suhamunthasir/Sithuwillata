@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
-import { useLanguage } from "../i18n";
+import { useLanguage, renderRich } from "../i18n";
 
 /**
  * Placeholder imagery from Unsplash (free). Replace `image` URLs with your own
@@ -41,7 +41,7 @@ export default function CoreProcess() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-brand-charcoal/65">
-              {t.coreProcess.intro}
+              {renderRich(t.coreProcess.intro)}
             </p>
           </Reveal>
         </div>
