@@ -1,4 +1,4 @@
-# Sithuwillata Athwalak · සිතුවිල්ලට අත්වැලක්
+# Sithuwillata Athwalak
 
 Homepage UI for a Sri Lankan child-education charity — _“From Small Acts of Kindness to Brighter Futures.”_
 

@@ -4,36 +4,11 @@ import Reveal from "./Reveal";
 import { useLanguage } from "../i18n";
 
 const STAT_META = [
-  {
-    value: 500,
-    suffix: "+",
-    image:
-      "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    value: 25,
-    suffix: "+",
-    image:
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    value: 100,
-    suffix: "+",
-    image:
-      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    value: 15,
-    suffix: "+",
-    image:
-      "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    value: 4,
-    suffix: "+",
-    image:
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80",
-  },
+  { value: 500, suffix: "+", image: "/images/prep/prep-packing-green.jpg" },
+  { value: 25, suffix: "+", image: "/images/prep/prep-market-stall.jpg" },
+  { value: 100, suffix: "+", image: "/images/prep/prep-boy-wrapping.jpg" },
+  { value: 15, suffix: "+", image: "/images/prep/prep-books-box.jpg" },
+  { value: 4, suffix: "+", image: "/images/prep/prep-pettah-street.jpg" },
 ];
 
 /**

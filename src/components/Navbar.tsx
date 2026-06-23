@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "./Logo";
-import LanguageToggle from "./LanguageToggle";
 import { useLanguage } from "../i18n";
 
-const NAV_HREFS = ["#impact", "#projects", "#about", "#gallery"];
+const NAV_HREFS = ["/", "/impact", "/projects", "/about", "/gallery"];
 const GET_INVOLVED_META = [
-  { href: "#donate", icon: HeartIcon },
-  { href: "#volunteer", icon: HandIcon },
-  { href: "#sponsor", icon: BookIcon },
-  { href: "#partner", icon: UsersIcon },
+  { href: "/#partner", icon: HeartIcon },
+  { href: "/#partner", icon: HandIcon },
+  { href: "/#partner", icon: BookIcon },
+  { href: "/#partner", icon: UsersIcon },
 ];
 
 export default function Navbar() {
@@ -62,13 +62,20 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => (
-            <a
+            <NavLink
               key={l.label}
-              href={l.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-brand-charcoal/80 transition-colors hover:text-brand-charcoal"
+              to={l.href}
+              end={l.href === "/"}
+              className={({ isActive }) =>
+                `rounded-full px-4 py-2 text-sm font-medium transition-colors hover:text-brand-charcoal ${
+                  isActive
+                    ? "text-brand-charcoal"
+                    : "text-brand-charcoal/80"
+                }`
+              }
             >
               {l.label}
-            </a>
+            </NavLink>
           ))}
 
           {/* Get Involved trigger + mega menu */}
@@ -100,9 +107,10 @@ export default function Navbar() {
                   <div className="overflow-hidden rounded-3xl border border-brand-charcoal/5 bg-white p-3 shadow-[0_24px_60px_rgba(74,74,72,0.18)]">
                     <div className="grid grid-cols-2 gap-2">
                       {getInvolved.map((card) => (
-                        <a
+                        <Link
                           key={card.title}
-                          href={card.href}
+                          to={card.href}
+                          onClick={() => setMegaOpen(false)}
                           className="group flex items-start gap-3 rounded-2xl p-4 transition-colors hover:bg-brand-cream"
                         >
                           <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-yellow/15 text-brand-yellow-deep transition-colors group-hover:bg-brand-yellow group-hover:text-brand-ink">
@@ -116,24 +124,26 @@ export default function Navbar() {
                               {card.desc}
                             </span>
                           </span>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                     <div className="mt-2 flex items-center justify-between rounded-2xl bg-brand-charcoal px-5 py-4">
                       <span className="text-sm text-white/90">
                         {t.nav.megaTagline}
                       </span>
-                      <a href="#donate" className="btn-primary !px-5 !py-2 text-xs">
+                      <Link
+                        to="/#partner"
+                        onClick={() => setMegaOpen(false)}
+                        className="btn-primary !px-5 !py-2 text-xs"
+                      >
                         {t.nav.donateNow}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-          {/* Language switch (English default, Sinhala optional) */}
-          <LanguageToggle variant="dark" className="ml-2" />
         </nav>
 
         {/* Mobile toggle */}
@@ -158,23 +168,24 @@ export default function Navbar() {
           >
             <div className="container-x flex flex-col gap-1 py-6">
               {navLinks.map((l) => (
-                <a
+                <NavLink
                   key={l.label}
-                  href={l.href}
+                  to={l.href}
+                  end={l.href === "/"}
                   onClick={() => setMobileOpen(false)}
                   className="rounded-xl px-4 py-3 text-base font-medium text-brand-charcoal hover:bg-brand-cream"
                 >
                   {l.label}
-                </a>
+                </NavLink>
               ))}
               <div className="my-3 h-px bg-brand-charcoal/10" />
               <p className="px-4 text-xs font-semibold uppercase tracking-widest text-brand-charcoal/40">
                 {t.nav.getInvolvedHeading}
               </p>
               {getInvolved.map((card) => (
-                <a
+                <Link
                   key={card.title}
-                  href={card.href}
+                  to={card.href}
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-brand-cream"
                 >
@@ -184,18 +195,15 @@ export default function Navbar() {
                   <span className="text-sm font-medium text-brand-charcoal">
                     {card.title}
                   </span>
-                </a>
+                </Link>
               ))}
-              <a
-                href="#donate"
+              <Link
+                to="/#partner"
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary mt-4"
               >
                 {t.nav.donateToday}
-              </a>
-              <div className="mt-5 flex justify-start px-1">
-                <LanguageToggle variant="dark" />
-              </div>
+              </Link>
             </div>
           </motion.div>
         )}

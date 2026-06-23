@@ -22,8 +22,6 @@ export default {
         display: ['"Lora"', "Georgia", "serif"],
         // Clean sans for body / UI
         sans: ['"Inter"', "system-ui", "sans-serif"],
-        // Sinhala
-        sinhala: ['"Noto Sans Sinhala"', '"Inter"', "sans-serif"],
       },
       maxWidth: {
         container: "1280px",

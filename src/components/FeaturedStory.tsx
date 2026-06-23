@@ -52,9 +52,8 @@ export default function FeaturedStory() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-2xl"
             >
-              {/* Replace with your own student portrait */}
               <img
-                src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1000&q=80"
+                src="/images/prep/prep-sorting-supplies.jpg"
                 alt="A student supported by Sithuwillata Athwalak"
                 loading="lazy"
                 className="h-full w-full object-cover"

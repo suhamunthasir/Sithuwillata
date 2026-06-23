@@ -1,18 +1,12 @@
 /**
- * Brand logo for Sithuwillata Athwalak / සිතුවිල්ලට අත්වැලක්
+ * Brand logo for Sithuwillata Athwalak.
  *
  * This renders an SVG re-creation of the brand mark (two cupping hands
- * cradling a "spark of hope") plus the Sinhala + English wordmark, built
- * entirely from the logo colours so it looks right with no external asset.
- *
- * ──────────────────────────────────────────────────────────────────────────
- * TO USE YOUR EXACT UPLOADED PNG/SVG LOGO INSTEAD:
- *   1. Save your logo file to:  public/logo.png   (or logo.svg)
- *   2. Replace the <BrandMark /> below with:
- *        <img src="/logo.png" alt="Sithuwillata Athwalak" className="h-10 w-auto" />
- * ──────────────────────────────────────────────────────────────────────────
+ * cradling a "spark of hope") plus the English wordmark, built entirely from
+ * the logo colours so it looks right with no external asset.
  */
 
+import { Link } from "react-router-dom";
 import { useLanguage } from "../i18n";
 
 type LogoProps = {
@@ -64,14 +58,14 @@ export default function Logo({
   showText = true,
   className = "",
 }: LogoProps) {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const titleColor = variant === "light" ? "text-white" : "text-brand-charcoal";
   const subColor =
     variant === "light" ? "text-white/70" : "text-brand-charcoal/60";
 
   return (
-    <a
-      href="#top"
+    <Link
+      to="/"
       className={`group flex items-center gap-3 ${className}`}
       aria-label="Sithuwillata Athwalak home"
     >
@@ -81,23 +75,17 @@ export default function Logo({
       {showText && (
         <span className="flex flex-col leading-none">
           <span
-            className={`text-lg font-extrabold tracking-tight ${
-              lang === "si" ? "font-sinhala" : ""
-            } ${titleColor}`}
+            className={`text-lg font-extrabold tracking-tight ${titleColor}`}
           >
             {t.logo.title}
           </span>
           <span
-            className={`mt-0.5 text-[10px] font-semibold ${
-              lang === "en"
-                ? "font-sinhala tracking-tight"
-                : "uppercase tracking-[0.28em]"
-            } ${subColor}`}
+            className={`mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] ${subColor}`}
           >
             {t.logo.sub}
           </span>
         </span>
       )}
-    </a>
+    </Link>
   );
 }

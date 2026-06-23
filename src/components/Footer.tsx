@@ -1,6 +1,22 @@
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
 import { useLanguage } from "../i18n";
+
+/** Maps footer link labels to their route or in-page anchor. */
+const LINK_MAP: Record<string, string> = {
+  "About Us": "/about",
+  Team: "/about",
+  Contact: "/#contact",
+  Impact: "/impact",
+  Projects: "/projects",
+  Gallery: "/gallery",
+  Stories: "/impact",
+  Donate: "/#partner",
+  Volunteer: "/#partner",
+  "Sponsor Supplies": "/#partner",
+  "Partner With Us": "/#partner",
+};
 
 const SOCIALS = [
   { name: "Instagram", icon: InstagramIcon },
@@ -22,7 +38,7 @@ export default function Footer() {
                 {t.footer.ctaPre}
                 <span className="text-brand-yellow">{t.footer.ctaAccent}</span>
               </h2>
-              <a href="#donate" className="btn-primary shrink-0 text-base">
+              <Link to="/#partner" className="btn-primary shrink-0 text-base">
                 {t.footer.getInvolved}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path
@@ -33,7 +49,7 @@ export default function Footer() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>
@@ -47,9 +63,6 @@ export default function Footer() {
             <p className="mt-5 text-sm leading-relaxed text-white/55">
               {t.footer.tagline}
             </p>
-            <p className="mt-4 font-sinhala text-sm text-white/70">
-              සිතුවිල්ලට අත්වැලක්
-            </p>
           </div>
 
           {t.footer.columns.map((col) => (
@@ -60,12 +73,12 @@ export default function Footer() {
               <ul className="mt-5 space-y-3">
                 {col.links.map((link) => (
                   <li key={link}>
-                    <a
-                      href="#"
+                    <Link
+                      to={LINK_MAP[link] ?? "/"}
                       className="text-sm text-white/65 transition-colors hover:text-white"
                     >
                       {link}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -76,7 +89,8 @@ export default function Footer() {
         {/* Socials + bottom bar */}
         <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
           <p className="text-xs text-white/45">
-            © {new Date().getFullYear()} Sithuwillata Athwalak. {t.footer.madeWith} 🇱🇰
+            &copy; {new Date().getFullYear()} Sithuwillata Athwalak.{" "}
+            {t.footer.madeWith}
           </p>
           <div className="flex items-center gap-3">
             {SOCIALS.map((s) => (

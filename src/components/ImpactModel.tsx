@@ -1,18 +1,19 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
 import { useLanguage, renderRich } from "../i18n";
 
 const CARD_META = [
   {
-    id: "projects",
-    href: "#projects",
+    id: "vision",
+    href: "/#partner",
     theme: "dark" as const,
     image:
       "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=1100&q=80",
   },
   {
-    id: "community",
-    href: "#volunteer",
+    id: "mission",
+    href: "/#partner",
     theme: "yellow" as const,
     image:
       "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1100&q=80",
@@ -87,8 +88,8 @@ export default function ImpactModel() {
                     >
                       {renderRich(card.text)}
                     </p>
-                    <a
-                      href={card.href}
+                    <Link
+                      to={card.href}
                       className={`mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 hover:gap-3 ${
                         isYellow
                           ? "bg-brand-ink text-white hover:bg-brand-charcoal-deep"
@@ -105,7 +106,7 @@ export default function ImpactModel() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                    </a>
+                    </Link>
                   </div>
                 </motion.div>
               </Reveal>
